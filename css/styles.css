@@ -61,6 +61,36 @@ body, html {
   opacity: 0.9;
 }
 
+/* Bike Animation */
+.bike {
+  position: fixed;
+  bottom: 10%;
+  left: -150px;
+  height: 80px;
+  z-index: 3;
+  animation: bikeMove 5s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-50vw);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bikeMove {
+  0% { left: -150px; }
+  10% { left: 10%; }
+  50% { left: 60%; }
+  90% { left: 100%; }
+  100% { left: 110vw; }
+}
+
 /* --- Firework Microanimation from https://codepen.io/yshlin/pen/WNMmQX --- */
 
 .firework {
