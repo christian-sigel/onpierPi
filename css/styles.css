@@ -4,9 +4,9 @@ body, html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: black;
+  background-color: #2E7AA9;
   font-family: 'Segoe UI', sans-serif;
-  color: white;
+  color: #212529;
 }
 
 #slider {
@@ -20,13 +20,11 @@ body, html {
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center;
+  background-position: bottom center;
   opacity: 0;
   transition: opacity 2s ease;
   z-index: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .slide.active {
@@ -35,19 +33,50 @@ body, html {
 }
 
 .quote-container {
-  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  width: 100vw;
+  background: rgba(250,250,250,0.7);
   padding: 2rem;
-  border-radius: 1rem;
-  max-width: 80%;
+  border-radius: 0 200px 200px 0;
+  border: 2px solid white;
   text-align: center;
   opacity: 0;
-  transform: translateX(-50vw);
+  transform: translateX(-150vw);
   transition: all 2s ease;
+}
+.quote-container::before,
+.quote-container::after {
+  content: "";
+  position: absolute;
+  width: 40%;       /* ← 30% von .quote-container */
+  padding-top: 40%; /* Höhe gleich Breite für Kreis */
+  left: -20%;
+  background: rgba(255,255,255,.7);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.quote-container::before {
+  top: -120px; /* oberer Kreis */
+}
+
+.quote-container::after {
+  bottom: -120px; /* unterer Kreis – leicht überlappend */
 }
 
 .slide.active .quote-container {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(-220px);
+}
+.slide.next .quote-container {
+  opacity: 0;
+  transform: translateX(50vw);
+}
+
+.quote {
+  padding: 0 60px 0 240px;
 }
 
 .quote h1 {
@@ -59,78 +88,4 @@ body, html {
   font-size: 1.5rem;
   font-style: italic;
   opacity: 0.9;
-}
-
-/* Bike Animation */
-.bike {
-  position: fixed;
-  bottom: 10%;
-  left: -150px;
-  height: 80px;
-  z-index: 3;
-  animation: bikeMove 5s ease-in-out infinite;
-  animation-delay: 3s;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(-50vw);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes bikeMove {
-  0% { left: -150px; }
-  10% { left: 10%; }
-  50% { left: 60%; }
-  90% { left: 100%; }
-  100% { left: 110vw; }
-}
-
-/* --- Firework Microanimation from https://codepen.io/yshlin/pen/WNMmQX --- */
-
-.firework {
-  position: fixed;
-  bottom: 10%;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  background: transparent;
-  border-radius: 50%;
-  box-shadow: 0 0 10px 4px #fff;
-  animation: fireworks 1.5s ease-out infinite;
-  z-index: 10;
-}
-
-@keyframes fireworks {
-  0% {
-    transform: scale(0);
-    opacity: 1;
-    box-shadow:
-      0 0 0 0 #fff,
-      0 0 0 0 #ff0,
-      0 0 0 0 #f0f,
-      0 0 0 0 #0ff;
-  }
-  50% {
-    box-shadow:
-      50px -50px 0 0 #fff,
-      -50px -50px 0 0 #ff0,
-      50px 50px 0 0 #f0f,
-      -50px 50px 0 0 #0ff;
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.5);
-    opacity: 0;
-    box-shadow:
-      50px -50px 0 0 transparent,
-      -50px -50px 0 0 transparent,
-      50px 50px 0 0 transparent,
-      -50px 50px 0 0 transparent;
-  }
 }
