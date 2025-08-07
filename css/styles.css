@@ -7,44 +7,47 @@ body, html {
   background-color: black;
   font-family: 'Segoe UI', sans-serif;
   color: white;
+}
+
+#slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 2s ease;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.background {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('../assets/bg.jpeg') center center no-repeat;
-  background-size: cover;
-  z-index: 1;
-  transition: filter 1.5s ease;
-}
-
-/* Quote Container */
-.quote-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  opacity: 0;
-  filter: blur(10px);
-  transition: opacity 2s ease, filter 2s ease;
-}
-
-.quote-container.visible {
+.slide.active {
   opacity: 1;
-  filter: blur(0);
+  z-index: 2;
 }
 
-.quote {
-  text-align: center;
+.quote-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 1rem;
   max-width: 80%;
-  font-size: 1.8rem;
-  animation: slideIn 1s ease forwards;
+  text-align: center;
+  opacity: 0;
+  transform: translateX(-50vw);
+  transition: all 2s ease;
+}
+
+.slide.active .quote-container {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .quote h1 {
@@ -58,32 +61,46 @@ body, html {
   opacity: 0.9;
 }
 
-/* Bike Animation */
-.bike {
+/* --- Firework Microanimation from https://codepen.io/yshlin/pen/WNMmQX --- */
+
+.firework {
   position: fixed;
   bottom: 10%;
-  left: -150px;
-  height: 80px;
-  z-index: 3;
-  animation: bikeMove 5s ease-in-out infinite;
-  animation-delay: 3s;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 4px #fff;
+  animation: fireworks 1.5s ease-out infinite;
+  z-index: 10;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(-50vw);
-    opacity: 0;
+@keyframes fireworks {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+    box-shadow:
+      0 0 0 0 #fff,
+      0 0 0 0 #ff0,
+      0 0 0 0 #f0f,
+      0 0 0 0 #0ff;
   }
-  to {
-    transform: translateX(0);
+  50% {
+    box-shadow:
+      50px -50px 0 0 #fff,
+      -50px -50px 0 0 #ff0,
+      50px 50px 0 0 #f0f,
+      -50px 50px 0 0 #0ff;
     opacity: 1;
   }
-}
-
-@keyframes bikeMove {
-  0% { left: -150px; }
-  10% { left: 10%; }
-  50% { left: 60%; }
-  90% { left: 100%; }
-  100% { left: 110vw; }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+    box-shadow:
+      50px -50px 0 0 transparent,
+      -50px -50px 0 0 transparent,
+      50px 50px 0 0 transparent,
+      -50px 50px 0 0 transparent;
+  }
 }
